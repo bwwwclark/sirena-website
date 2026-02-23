@@ -45,6 +45,16 @@
             overflow: hidden;
         }
 
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -52,7 +62,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(30, 90, 142, 0.85) 0%, rgba(43, 168, 201, 0.85) 100%);
+            background: transparent;
+            z-index: 1;
         }
 
         .hero-content {
@@ -60,8 +71,11 @@
             z-index: 2;
             text-align: center;
             max-width: 900px;
-            padding: 0 20px;
+            padding: 3rem 3.5rem;
             animation: fadeInUp 1s ease-out;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 16px;
+            backdrop-filter: blur(2px);
         }
 
         .hero h1 {
@@ -69,7 +83,7 @@
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
             letter-spacing: -1px;
         }
 
@@ -77,7 +91,7 @@
             font-size: 1.5rem;
             font-weight: 300;
             margin-bottom: 2rem;
-            opacity: 0.95;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
         }
 
         .hero .location {
@@ -85,6 +99,7 @@
             font-weight: 600;
             margin-bottom: 3rem;
             color: var(--gold-accent);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
 
         .cta-buttons {
@@ -238,7 +253,8 @@
             position: relative;
         }
 
-        .carousel-slide img {
+        .carousel-slide img,
+        .carousel-slide video {
             width: 100%;
             height: 600px;
             object-fit: cover;
@@ -304,26 +320,59 @@
         /* Hollywood Florida Section */
         .hollywood-section {
             padding: 100px 20px;
-            background: linear-gradient(135deg, var(--light-blue) 0%, #f8fbfd 100%);
+            background: url('hollywood.jpg') center / cover no-repeat;
             position: relative;
             overflow: hidden;
-            background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070');
         }
 
         .hollywood-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(43, 168, 201, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
+            inset: 0;
+            background: url('hollywood-2.jpg') center / cover no-repeat;
+            animation: hollywoodCrossfade 7s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        .hollywood-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 1;
         }
 
         .hollywood-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+        }
+
+        @keyframes hollywoodCrossfade {
+            0%   { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .hollywood-section .section-title {
+            color: var(--white);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+        }
+
+        .hollywood-section .hollywood-intro {
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        }
+
+        .hollywood-section .stat-number {
+            color: var(--white);
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.4);
+        }
+
+        .hollywood-section .stat-label {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .hollywood-section .stats-row {
+            border-top-color: rgba(255, 255, 255, 0.3);
         }
 
         .hollywood-intro {
@@ -517,6 +566,77 @@
             color: var(--primary-blue);
         }
 
+        /* Floor Info Layout */
+        .floor-stats-bar {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .floor-stat-badge {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .floor-stat-badge .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+            display: block;
+        }
+
+        .floor-stat-badge .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .floor-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3.5rem;
+            align-items: start;
+        }
+
+        .floor-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .floor-cta {
+            margin-top: 1.5rem;
+        }
+
+        .floor-info .space-features {
+            margin-top: 0;
+        }
+
+        .floor-divider {
+            text-align: center;
+            padding: 2.5rem 20px;
+            background: var(--white);
+            border-top: 1px solid rgba(43, 168, 201, 0.2);
+            border-bottom: 1px solid rgba(43, 168, 201, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .floor-info {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+
         /* Contact Section */
         .contact-section {
             padding: 100px 20px;
@@ -655,171 +775,455 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="hero-video.mp4" type="video/mp4">
+        </video>
         <div class="hero-content">
             <h1>Make Jewelry in South Florida</h1>
             <p class="tagline">Premium Manufacturing & Office Spaces</p>
             <p class="location">📍 1900 Tyler St, Downtown Hollywood, Florida</p>
             <div class="cta-buttons">
-                <a href="#spaces" class="btn btn-primary">View Spaces</a>
+                <a href="#floor2" class="btn btn-primary">View Spaces</a>
                 <a href="#contact" class="btn btn-secondary">Contact Us</a>
             </div>
         </div>
         <div class="scroll-indicator"></div>
     </section>
     
-    <!-- Featured Images -->
-    <section class="featured-section">
-        <div class="container">
-            <h2 class="section-title">Exceptional Facilities</h2>
-            <p class="section-subtitle">State-of-the-art security and modern workspace designed for precision craftsmanship</p>
-            
-            <div class="featured-grid">
-                <div class="featured-card">
-                    <img src="20251111_101109_resized.jpg" alt="Bank-grade security vault">
-                    <div class="featured-caption">Bank-Grade Security Vault</div>
-                </div>
-                <div class="featured-card">
-                    <img src="artist-rendering.png" alt="Modern industrial workspace">
-                    <div class="featured-caption">Modern Industrial Design</div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Carousel Section -->
-    <section class="carousel-section">
+    <!-- The Building Section -->
+    <section class="carousel-section" id="the-building" style="background: var(--light-blue);">
         <div class="container">
-            <h2 class="section-title">Explore the Space</h2>
-            <p class="section-subtitle">Tour our versatile workspaces designed for creativity and productivity</p>
-            
-            <div class="carousel-container">
-                <div class="carousel-track" id="carouselTrack">
+            <h2 class="section-title">The Building</h2>
+
+            <p class="section-subtitle" style="margin-bottom: 2.5rem;">
+                1900 Tyler Street sits at the heart of Downtown Hollywood — a landmark professional building
+                with prestigious tenants, a prime location, and unbeatable access to South Florida's major
+                business corridors.
+            </p>
+
+            <ul class="space-features" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; margin-bottom: 3rem;">
+                <li>Bank of America anchor tenant on ground floor</li>
+                <li>One block from Young Circle</li>
+                <li>Surrounded by great dining within walking distance</li>
+                <li>20 min to Fort Lauderdale International Airport</li>
+                <li>Under 1 hour to Miami International Airport</li>
+                <li>Direct access to I-95 &amp; US-1</li>
+                <li>Ample surface parking on-site</li>
+            </ul>
+
+            <div class="carousel-container" id="carouselContainerBuilding">
+                <div class="carousel-track" id="carouselTrackBuilding">
                     <div class="carousel-slide">
-                        <img src="20251111_101122_resized.jpg" alt="Open office workspace">
+                        <img src="DJI_20260211104944_0294_D.jpg" alt="Aerial view of the building">
+                        <div class="featured-caption">Aerial View — 1900 Tyler St, Downtown Hollywood</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101135_resized.jpg" alt="Collaborative work areas">
+                        <img src="DJI_20260211105005_0295_D.jpg" alt="Aerial view of surrounding area">
+                        <div class="featured-caption">Surrounding Neighborhood &amp; Downtown Core</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101142_resized.jpg" alt="Private offices">
+                        <img src="DJI_20260211105030_0296_D.jpg" alt="Aerial view showing proximity to Young Circle">
+                        <div class="featured-caption">One Block from Young Circle</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101152_resized.jpg" alt="Equipment and supply area">
+                        <img src="DJI_20260211105044_0297_D(1).jpg" alt="Drone view of the building exterior">
+                        <div class="featured-caption">Building Exterior &amp; Street-Level Access</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101157_resized.jpg" alt="Additional workspace">
+                        <img src="DJI_20260211105146_0298_D.jpg" alt="Aerial view of Hollywood downtown">
+                        <div class="featured-caption">Downtown Hollywood — Vibrant Business District</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101214_resized.jpg" alt="Specialized work areas">
+                        <img src="DJI_20260211105308_0299_D.jpg" alt="Aerial view showing dining and amenities">
+                        <div class="featured-caption">Dining &amp; Amenities Within Walking Distance</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101227_resized.jpg" alt="Professional workspace setup">
+                        <img src="DJI_20260211105448_0301_D.jpg" alt="Aerial panorama of Hollywood FL">
+                        <div class="featured-caption">Hollywood, FL — Strategic South Florida Location</div>
                     </div>
                     <div class="carousel-slide">
-                        <img src="20251111_101231_resized.jpg" alt="Office view">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="20251111_101334_resized.jpg" alt="Conference area">
+                        <img src="DJI_20260211105502_0302_D.jpg" alt="Aerial view of the building and parking">
+                        <div class="featured-caption">On-Site Surface Parking &amp; Easy Access</div>
                     </div>
                 </div>
-                
+
                 <div class="carousel-controls">
-                    <button class="carousel-btn" id="prevBtn">‹</button>
-                    <button class="carousel-btn" id="nextBtn">›</button>
+                    <button class="carousel-btn" id="prevBtnBuilding">‹</button>
+                    <button class="carousel-btn" id="nextBtnBuilding">›</button>
                 </div>
             </div>
-            
-            <div class="carousel-indicators" id="indicators"></div>
+
+            <div class="carousel-indicators" id="indicatorsBuilding"></div>
         </div>
     </section>
 
-    <!-- Spaces Section -->
-    <section id="spaces" class="spaces-section">
+    <!-- 2nd Floor Section -->
+    <section class="carousel-section" id="floor2">
         <div class="container">
-            <h2 class="section-title">Available Spaces</h2>
-            <p class="section-subtitle">Two exceptional opportunities in the heart of Downtown Hollywood</p>
-            
-            <div class="spaces-grid">
-                <!-- Space 1: 2nd Floor -->
-                <div class="space-card">
-                    <div class="space-header">
-                        <h3>Second Floor Suite</h3>
-                        <div class="space-size">5,580 SF</div>
-                        <div class="space-price">$41.00/SF/Year</div>
-                
-                    </div>
-                    <div class="space-body">
-                        <p class="space-description">
-                            Large, flexible second floor office space in the heart of downtown Hollywood. 
-                            This former jewelry manufacturing facility features high ceilings, hardwood floors, 
-                            and an ideal layout for creative businesses requiring both private offices and 
-                            collaborative spaces.
-                        </p>
-                        
-                        <ul class="space-features">
-                            <li>10 Private Offices</li>
-                            <li>Two Large Open Workspace Areas</li>
-                            <li>High Ceilings Throughout</li>
-                            <li>Beautiful Hardwood Floors</li>
-                            <li>Central Air & Heating</li>
-                            <li>Mostly Open Floor Plan Layout</li>
-                            <li>Ample Surface Parking</li>
-                        </ul>
+            <h2 class="section-title">2nd Floor</h2>
 
-                        <div class="space-highlight">
-                            <strong>Perfect For:</strong> Jewelry designers, creative studios, professional offices, 
-                            tech companies, or any business seeking a prestigious downtown location with flexible workspace.
-                            <p></p>
-                          
-                        </div>
+            <div class="floor-stats-bar">
+                <div class="floor-stat-badge">
+                    <span class="stat-value">5,580 SF</span>
+                    <span class="stat-label">Total Space</span>
+                </div>
+                <div class="floor-stat-badge">
+                    <span class="stat-value">$39.00</span>
+                    <span class="stat-label">Per SF / Year</span>
+                </div>
+            </div>
+
+            <div class="floor-info">
+                <div>
+                    <p class="floor-description">
+                        Large, flexible second floor office space in the heart of downtown Hollywood.
+                        This former jewelry manufacturing facility features high ceilings, hardwood floors,
+                        and an ideal layout for creative businesses requiring both private offices and
+                        collaborative spaces.
+                    </p>
+                    <div class="space-highlight">
+                        <strong>Perfect For:</strong> Jewelry designers, creative studios, professional offices,
+                        tech companies, or any business seeking a prestigious downtown location with flexible workspace.
+                    </div>
+                    <div class="floor-cta">
                         <a href="https://www.loopnet.com/Listing/1900-Tyler-St-Hollywood-FL/39026374/" target="_blank" class="btn btn-primary">
                             View Full Listing on LoopNet
                         </a>
                     </div>
                 </div>
-
-                <!-- Space 2: 3rd Floor -->
-                <div class="space-card">
-                    <div class="space-header">
-                        <h3>Third Floor Suite</h3>
-                        <div class="space-size">9,780 SF</div>
-                        <div class="space-price">41.00/SF/Year</div>
-                    </div>
-                    <div class="space-body">
-                        <p class="space-description">
-                            Expansive third floor space that served as a complete jewelry manufacturing and 
-                            shipping facility. This suite includes specialized features perfect for
-                            jewelry businesses or it can be converted for a wide variety of commercial uses.
-                        </p>
-                        
-                        <ul class="space-features">
-                            <li>Bank-Grade Security Vault</li>
-                            <li>Dedicated Mailing & Shipping Area</li>
-                            <li>Multiple Private Offices</li>
-                            <li>Open Cubicle Workspace</li>
-                            <li>Specialized Manufacturing Areas</li>
-                            <li>Secure Entrance Systems</li>
-                            <li>Downtown Location</li>
-                        </ul>
-
-                        <div class="space-highlight">
-                            <strong>Ideal For:</strong> Jewelry manufacturers, precious metals dealers, luxury goods 
-                            companies, or businesses requiring high-security facilities and extensive operational space.
-                        </div>
-                    </div>
+                <div>
+                    <ul class="space-features">
+                        <li>10 Private Offices</li>
+                        <li>Two Large Open Workspace Areas</li>
+                        <li>High Ceilings Throughout</li>
+                        <li>Beautiful Hardwood Floors</li>
+                        <li>Central Air &amp; Heating</li>
+                        <li>Mostly Open Floor Plan Layout</li>
+                        <li>Ample Surface Parking</li>
+                    </ul>
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 4rem;">
-                <p style="font-size: 1.3rem; color: var(--text-light); margin-bottom: 2rem;">
-                    Both spaces can be leased together or separately to suit your needs
-                </p>
+            <div class="carousel-container" id="carouselContainer2">
+                <div class="carousel-track" id="carouselTrack2">
+                    <div class="carousel-slide">
+                        <video muted playsinline>
+                            <source src="2f-video.mp4" type="video/mp4">
+                        </video>
+                        <div class="featured-caption">2nd Floor — Video Walkthrough</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8335.jpeg" alt="Kitchen and break room">
+                        <div class="featured-caption">Fully Equipped Kitchen &amp; Break Room with Stainless Appliances</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8338.jpeg" alt="Private office">
+                        <div class="featured-caption">Private Office with Hardwood Floors — Ready for Occupancy</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8341.jpeg" alt="Office with kitchen view">
+                        <div class="featured-caption">Private Office with Direct Access to Kitchen Area</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8347.jpeg" alt="Windowed private office">
+                        <div class="featured-caption">Windowed Private Office with Flexible Partition Wall</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8350.jpeg" alt="Sun-filled private office">
+                        <div class="featured-caption">Sun-Filled Private Office with Dual Windows</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8353.jpeg" alt="Private office with connecting doorway">
+                        <div class="featured-caption">Private Office with Natural Light &amp; Connecting Doorway</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8356.jpeg" alt="Open circulation area">
+                        <div class="featured-caption">Open Circulation Area with Access to Multiple Private Offices</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8359.jpeg" alt="Office with exposed brick wall">
+                        <div class="featured-caption">Character Office with Exposed Brick Accent Wall</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8362.jpeg" alt="Large open workspace">
+                        <div class="featured-caption">Large Open Workspace with Access to Private Offices</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8365.jpeg" alt="Open production area with brick column">
+                        <div class="featured-caption">Expansive Open Area with Original Exposed Brick Column</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8368.jpeg" alt="Transitional space with sliding partition">
+                        <div class="featured-caption">Transitional Space with Sliding Partition Wall</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8371.jpeg" alt="Open floor plan with glass offices">
+                        <div class="featured-caption">Wide-Open Floor Plan with Glass Partition Offices</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8374.jpeg" alt="Open floor plan with frosted glass offices">
+                        <div class="featured-caption">Open Floor Plan with Frosted Glass Private Offices</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8377.jpeg" alt="Windowed room with bathroom access">
+                        <div class="featured-caption">Windowed Room with Natural Light &amp; Private Bathroom Access</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8380.jpeg" alt="ADA-compliant restroom">
+                        <div class="featured-caption">ADA-Compliant Restroom with Tile Flooring</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8383.jpeg" alt="Private bathroom with walk-in shower">
+                        <div class="featured-caption">Private Bathroom with Walk-In Tiled Shower</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8386.jpeg" alt="Secure access corridor">
+                        <div class="featured-caption">Secure Access Corridor with Frosted Glass Entry</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8389.jpeg" alt="Keycard-secured suite entry">
+                        <div class="featured-caption">Keycard-Secured Frosted Glass Suite Entry Doors</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="R6II8393_1.jpeg" alt="Building lobby">
+                        <div class="featured-caption">Ground Floor Building Lobby with Glass Entry &amp; Elevator</div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn2">‹</button>
+                    <button class="carousel-btn" id="nextBtn2">›</button>
+                </div>
+            </div>
+
+            <div class="carousel-indicators" id="indicators2"></div>
+
+            <div style="text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(43, 168, 201, 0.2);">
                 <a href="#contact" class="btn btn-primary">Schedule a Tour</a>
             </div>
         </div>
     </section>
 
-  
+    <!-- 3rd Floor Section -->
+    <section class="carousel-section" id="floor3" style="background: var(--white);">
+        <div class="container">
+            <h2 class="section-title">3rd Floor</h2>
+
+            <div class="floor-stats-bar">
+                <div class="floor-stat-badge">
+                    <span class="stat-value">9,780 SF</span>
+                    <span class="stat-label">Total Space</span>
+                </div>
+                <div class="floor-stat-badge">
+                    <span class="stat-value">$39.00</span>
+                    <span class="stat-label">Per SF / Year</span>
+                </div>
+            </div>
+
+            <div class="floor-info">
+                <div>
+                    <p class="floor-description">
+                        Expansive third floor space that served as a complete jewelry manufacturing and
+                        shipping facility. This suite includes specialized features perfect for
+                        jewelry businesses or it can be converted for a wide variety of commercial uses.
+                    </p>
+                    <div class="space-highlight">
+                        <strong>Ideal For:</strong> Jewelry manufacturers, precious metals dealers, luxury goods
+                        companies, or businesses requiring high-security facilities and extensive operational space.
+                    </div>
+                </div>
+                <div>
+                    <ul class="space-features">
+                        <li>Bank-Grade Security Vault</li>
+                        <li>Dedicated Mailing &amp; Shipping Area</li>
+                        <li>Multiple Private Offices</li>
+                        <li>Open Cubicle Workspace</li>
+                        <li>Specialized Manufacturing Areas</li>
+                        <li>Secure Entrance Systems</li>
+                        <li>Downtown Location</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="carousel-container" id="carouselContainer3">
+                <div class="carousel-track" id="carouselTrack3">
+                    <div class="carousel-slide">
+                        <video muted playsinline>
+                            <source src="3f-video.mp4" type="video/mp4">
+                        </video>
+                        <div class="featured-caption">3rd Floor — Video Walkthrough</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8221.jpeg" alt="Secured reception area">
+                        <div class="featured-caption">Secured Reception Area with Monitored Pass-Through Window</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8224.jpeg" alt="Secure double-door entry">
+                        <div class="featured-caption">Secure Double-Door Entry with Access Control</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8227.jpeg" alt="Private conference room">
+                        <div class="featured-caption">Private Conference Room with Natural Light</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8230.jpg" alt="Security monitoring station">
+                        <div class="featured-caption">Security Monitoring Station with Surveillance Screens</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8233.jpeg" alt="Cubicle corridor with pass-through window">
+                        <div class="featured-caption">Open Corridor with Cubicle Workstations &amp; Pass-Through Window</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8236.jpeg" alt="Built-in workstation with pass-through">
+                        <div class="featured-caption">Built-In Workstation with Glass Pass-Through to Production Floor</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8239.jpg" alt="Jewelry manufacturing workspace">
+                        <div class="featured-caption">Active Jewelry Manufacturing &amp; Processing Workspace</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8242.jpeg" alt="Shipping and mailroom">
+                        <div class="featured-caption">Dedicated Shipping &amp; Mailroom with Full Shelving System</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8245.jpeg" alt="Automated jewelry storage system">
+                        <div class="featured-caption">Automated Jewelry Storage System (MegaStar) with Display Wall</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8248.jpeg" alt="Secure manufacturing room with safe">
+                        <div class="featured-caption">Secure Manufacturing Room with Floor Safe &amp; Automated Storage</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8251.jpeg" alt="Manufacturing room with vault access">
+                        <div class="featured-caption">Manufacturing Room with Direct Vault Entry Access</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8254.jpeg" alt="Bank-grade vault door open">
+                        <div class="featured-caption">Bank-Grade Stainless Steel Vault — Door Open</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8257.jpeg" alt="Bank-grade vault door closed">
+                        <div class="featured-caption">Bank-Grade Vault with Combination Lock &amp; Electronic Entry</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8260.jpeg" alt="Additional high-security safe">
+                        <div class="featured-caption">Additional High-Security Safe for Valuables Storage</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8263.jpeg" alt="Open office bullpen with vault">
+                        <div class="featured-caption">Spacious Open Office Bullpen with Vault Access</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8266.jpeg" alt="Multi-desk bullpen">
+                        <div class="featured-caption">Large Multi-Desk Bullpen with Ample Storage</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8269.jpeg" alt="Copy and print room">
+                        <div class="featured-caption">Dedicated Copy &amp; Print Room with Commercial Printers</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8272.jpg" alt="Records storage room">
+                        <div class="featured-caption">Records Storage Room with Built-In Shelving</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8275.jpeg" alt="Jewelry inspection and processing room">
+                        <div class="featured-caption">Dedicated Jewelry Inspection &amp; Processing Room</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8278.jpeg" alt="Windowed corridor overlooking workroom">
+                        <div class="featured-caption">Windowed Corridor Overlooking Processing Workroom</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8281.jpeg" alt="IT server room">
+                        <div class="featured-caption">IT Infrastructure Room with Server Rack &amp; HVAC</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8284.jpeg" alt="Dedicated server room">
+                        <div class="featured-caption">Dedicated Server Room with Full Network Infrastructure</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8287.jpeg" alt="Common break and meeting area">
+                        <div class="featured-caption">Common Break &amp; Meeting Area with Pass-Through Windows</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8290.jpeg" alt="IT repair and tech workroom">
+                        <div class="featured-caption">IT Repair &amp; Technology Workroom</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8293.jpeg" alt="Large open office with cubicles">
+                        <div class="featured-caption">Large Open Office with Cubicle Workstations &amp; Overhead Shelving</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8296.jpeg" alt="Private office with built-in storage">
+                        <div class="featured-caption">Private Office with Built-In Desk &amp; Upper Storage Cabinets</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8299.jpeg" alt="Private office with pass-through window">
+                        <div class="featured-caption">Active Private Office with Pass-Through Window</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8302.jpeg" alt="Open cubicle office area">
+                        <div class="featured-caption">Open Cubicle Office Area with Multiple Workstations</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8305.jpeg" alt="Private office with storage and window">
+                        <div class="featured-caption">Private Office with Storage Shelving &amp; Natural Light</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8308.jpeg" alt="Executive lounge with leather sofas">
+                        <div class="featured-caption">Executive Lounge with Leather Sofas &amp; Entertainment Area</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8311.jpeg" alt="Executive lounge with kitchenette">
+                        <div class="featured-caption">Executive Lounge with Adjacent Kitchenette</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8314.jpeg" alt="Private bathroom with shower">
+                        <div class="featured-caption">Private Bathroom with Shower — Available Within Suite</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8317.jpeg" alt="Large executive office">
+                        <div class="featured-caption">Large Executive Office with Multiple Workstations &amp; Window</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8320.jpg" alt="Private workroom with glass view">
+                        <div class="featured-caption">Private Workroom with Glass View to Adjacent Space</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8323.jpeg" alt="Filing corridor with pass-through windows">
+                        <div class="featured-caption">Filing Corridor with Pass-Through Windows to Adjacent Workrooms</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8326.jpeg" alt="Storage and utility room">
+                        <div class="featured-caption">Storage &amp; Utility Room with Electrical Infrastructure</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8329.jpeg" alt="Multi-stall restroom">
+                        <div class="featured-caption">Multi-Stall Restroom with Dual Vanity Sinks</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8344.jpeg" alt="Executive conference room">
+                        <div class="featured-caption">Executive Conference Room with Built-In Bookshelves &amp; Whiteboard</div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn3">‹</button>
+                    <button class="carousel-btn" id="nextBtn3">›</button>
+                </div>
+            </div>
+
+            <div class="carousel-indicators" id="indicators3"></div>
+
+            <div style="text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(43, 168, 201, 0.2);">
+                <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 1.5rem;">
+                    Both floors can be leased together or separately to suit your needs
+                </p>
+                <a href="#contact" class="btn btn-primary">Schedule a Tour</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Hollywood Florida Section -->
     <section class="hollywood-section">
@@ -830,6 +1234,21 @@
                 and thriving business hub. Strategically positioned between Fort Lauderdale and Miami, this vibrant city 
                 provides an exceptional environment for jewelry manufacturing and businesses of all kinds.
             </p>
+
+            <div class="stats-row" style="margin-top: 0; padding-top: 0; border-top: none; padding-bottom: 4rem; border-bottom: 2px solid rgba(255,255,255,0.3); margin-bottom: 4rem;">
+                <div class="stat-item">
+                    <div class="stat-number">0%</div>
+                    <div class="stat-label">Personal Income Tax</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$2B+</div>
+                    <div class="stat-label">Real Estate Investment</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">245</div>
+                    <div class="stat-label">Sunny Days Per Year</div>
+                </div>
+            </div>
 
             <div class="benefits-grid">
                 <div class="benefit-card">
@@ -896,20 +1315,6 @@
                 </div>
             </div>
 
-            <div class="stats-row">
-                <div class="stat-item">
-                    <div class="stat-number">0%</div>
-                    <div class="stat-label">Personal Income Tax</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">$2B+</div>
-                    <div class="stat-label">Real Estate Investment</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">245</div>
-                    <div class="stat-label">Sunny Days Per Year</div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -958,64 +1363,90 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Carousel functionality
-        const track = document.getElementById('carouselTrack');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const indicatorsContainer = document.getElementById('indicators');
-        
-        let currentIndex = 0;
-        const totalSlides = slides.length;
+        // Carousel factory — supports multiple independent carousels
+        function initCarousel(trackId, prevBtnId, nextBtnId, indicatorsId, containerId) {
+            const track = document.getElementById(trackId);
+            const slides = track.querySelectorAll('.carousel-slide');
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
+            const indicatorsContainer = document.getElementById(indicatorsId);
+            const container = document.getElementById(containerId);
 
-        // Create indicators
-        for (let i = 0; i < totalSlides; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.addEventListener('click', () => goToSlide(i));
-            indicatorsContainer.appendChild(indicator);
-        }
+            let currentIndex = 0;
+            let autoAdvance;
+            const totalSlides = slides.length;
 
-        const indicators = document.querySelectorAll('.indicator');
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (i === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(i));
+                indicatorsContainer.appendChild(indicator);
+            }
 
-        function updateCarousel() {
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentIndex);
+            const indicators = indicatorsContainer.querySelectorAll('.indicator');
+
+            function currentSlideHasVideo() {
+                return !!slides[currentIndex].querySelector('video');
+            }
+
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                indicators.forEach((ind, i) => ind.classList.toggle('active', i === currentIndex));
+
+                slides.forEach((slide, i) => {
+                    const video = slide.querySelector('video');
+                    if (!video) return;
+                    if (i === currentIndex) {
+                        video.currentTime = 0;
+                        video.play();
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+
+                clearInterval(autoAdvance);
+                if (!currentSlideHasVideo()) {
+                    autoAdvance = setInterval(nextSlide, 5000);
+                }
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // When a video ends, automatically advance to next slide
+            slides.forEach((slide) => {
+                const video = slide.querySelector('video');
+                if (video) video.addEventListener('ended', nextSlide);
             });
-        }
 
-        function goToSlide(index) {
-            currentIndex = index;
+            container.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+            container.addEventListener('mouseleave', () => {
+                if (!currentSlideHasVideo()) autoAdvance = setInterval(nextSlide, 5000);
+            });
+
             updateCarousel();
         }
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-        // Auto-advance carousel
-        let autoAdvance = setInterval(nextSlide, 5000);
-
-        // Pause auto-advance on hover
-        const carouselContainer = document.querySelector('.carousel-container');
-        carouselContainer.addEventListener('mouseenter', () => {
-            clearInterval(autoAdvance);
-        });
-
-        carouselContainer.addEventListener('mouseleave', () => {
-            autoAdvance = setInterval(nextSlide, 5000);
-        });
+        initCarousel('carouselTrack2', 'prevBtn2', 'nextBtn2', 'indicators2', 'carouselContainer2');
+        initCarousel('carouselTrack3', 'prevBtn3', 'nextBtn3', 'indicators3', 'carouselContainer3');
+        initCarousel('carouselTrackBuilding', 'prevBtnBuilding', 'nextBtnBuilding', 'indicatorsBuilding', 'carouselContainerBuilding');
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
