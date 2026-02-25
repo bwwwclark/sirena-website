@@ -47,12 +47,17 @@
 
         .hero-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            top: 50%;
+            left: 50%;
+            /* Oversized iframe simulates object-fit: cover for 16:9 video */
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100%;
+            min-width: 177.78vh;
+            transform: translate(-50%, -50%);
             z-index: 0;
+            pointer-events: none;
+            border: none;
         }
 
         .hero::before {
@@ -259,6 +264,14 @@
             height: 600px;
             object-fit: cover;
             display: block;
+        }
+
+        .carousel-slide .yt-player,
+        .carousel-slide .yt-player iframe {
+            width: 100%;
+            height: 600px;
+            display: block;
+            border: none;
         }
 
         .carousel-controls {
@@ -775,9 +788,10 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="hero-video.mp4" type="video/mp4">
-        </video>
+        <iframe class="hero-video"
+            src="https://www.youtube-nocookie.com/embed/sZc4c5xOScI?autoplay=1&mute=1&loop=1&playlist=sZc4c5xOScI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            allow="autoplay; encrypted-media"
+            allowfullscreen></iframe>
         <div class="hero-content">
             <h1>Make Jewelry in South Florida</h1>
             <p class="tagline">Premium Manufacturing & Office Spaces</p>
@@ -908,9 +922,7 @@
             <div class="carousel-container" id="carouselContainer2">
                 <div class="carousel-track" id="carouselTrack2">
                     <div class="carousel-slide">
-                        <video muted playsinline>
-                            <source src="2f-video.mp4" type="video/mp4">
-                        </video>
+                        <div class="yt-player" id="yt-player-2f" data-youtube-id="sUBGzfsfPf0"></div>
                         <div class="featured-caption">2nd Floor — Video Walkthrough</div>
                     </div>
                     <div class="carousel-slide">
@@ -1049,9 +1061,7 @@
             <div class="carousel-container" id="carouselContainer3">
                 <div class="carousel-track" id="carouselTrack3">
                     <div class="carousel-slide">
-                        <video muted playsinline>
-                            <source src="3f-video.mp4" type="video/mp4">
-                        </video>
+                        <div class="yt-player" id="yt-player-3f" data-youtube-id="w4DIxlVFgJ4"></div>
                         <div class="featured-caption">3rd Floor — Video Walkthrough</div>
                     </div>
                     <div class="carousel-slide">
@@ -1362,7 +1372,38 @@
         <p style="margin-top: 0.5rem; opacity: 0.7;">Visit <a href="https://www.sirenadesigns.com" style="color: var(--gold-accent);">www.sirenadesigns.com</a></p>
     </footer>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // YouTube IFrame API state
+        const ytPlayers = {};        // playerId → YT.Player instance
+        const ytNextSlide = {};      // playerId → nextSlide callback
+        const carouselUpdaters = []; // called once YouTube API is ready
+
+        function onYouTubeIframeAPIReady() {
+            document.querySelectorAll('.yt-player').forEach(el => {
+                const playerId = el.id;
+                ytPlayers[playerId] = new YT.Player(playerId, {
+                    videoId: el.dataset.youtubeId,
+                    playerVars: {
+                        controls: 0,
+                        rel: 0,
+                        modestbranding: 1,
+                        playsinline: 1,
+                        mute: 1
+                    },
+                    events: {
+                        onStateChange: (event) => {
+                            if (event.data === YT.PlayerState.ENDED && ytNextSlide[playerId]) {
+                                ytNextSlide[playerId]();
+                            }
+                        }
+                    }
+                });
+            });
+            // Re-trigger all carousels so the current slide starts playing
+            carouselUpdaters.forEach(fn => fn());
+        }
+
         // Carousel factory — supports multiple independent carousels
         function initCarousel(trackId, prevBtnId, nextBtnId, indicatorsId, containerId) {
             const track = document.getElementById(trackId);
@@ -1376,6 +1417,15 @@
             let autoAdvance;
             const totalSlides = slides.length;
 
+            // Capture YouTube player IDs upfront (before API replaces the divs with iframes)
+            const slideYtIds = Array.from(slides).map(slide => {
+                const el = slide.querySelector('.yt-player');
+                return el ? el.id : null;
+            });
+
+            // Register nextSlide callbacks so onYouTubeIframeAPIReady can wire them up
+            slideYtIds.forEach(id => { if (id) ytNextSlide[id] = nextSlide; });
+
             for (let i = 0; i < totalSlides; i++) {
                 const indicator = document.createElement('div');
                 indicator.classList.add('indicator');
@@ -1387,7 +1437,7 @@
             const indicators = indicatorsContainer.querySelectorAll('.indicator');
 
             function currentSlideHasVideo() {
-                return !!slides[currentIndex].querySelector('video');
+                return !!slides[currentIndex].querySelector('video') || !!slideYtIds[currentIndex];
             }
 
             function updateCarousel() {
@@ -1395,14 +1445,27 @@
                 indicators.forEach((ind, i) => ind.classList.toggle('active', i === currentIndex));
 
                 slides.forEach((slide, i) => {
+                    // Native <video> handling
                     const video = slide.querySelector('video');
-                    if (!video) return;
-                    if (i === currentIndex) {
-                        video.currentTime = 0;
-                        video.play();
-                    } else {
-                        video.pause();
-                        video.currentTime = 0;
+                    if (video) {
+                        if (i === currentIndex) {
+                            video.currentTime = 0;
+                            video.play();
+                        } else {
+                            video.pause();
+                            video.currentTime = 0;
+                        }
+                    }
+                    // YouTube player handling
+                    const ytId = slideYtIds[i];
+                    if (ytId && ytPlayers[ytId]) {
+                        if (i === currentIndex) {
+                            ytPlayers[ytId].seekTo(0);
+                            ytPlayers[ytId].playVideo();
+                        } else {
+                            ytPlayers[ytId].pauseVideo();
+                            ytPlayers[ytId].seekTo(0);
+                        }
                     }
                 });
 
@@ -1430,7 +1493,7 @@
             nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
 
-            // When a video ends, automatically advance to next slide
+            // Native video ended → advance slide
             slides.forEach((slide) => {
                 const video = slide.querySelector('video');
                 if (video) video.addEventListener('ended', nextSlide);
@@ -1440,6 +1503,9 @@
             container.addEventListener('mouseleave', () => {
                 if (!currentSlideHasVideo()) autoAdvance = setInterval(nextSlide, 5000);
             });
+
+            // Register updater so YouTube API can trigger playback once ready
+            carouselUpdaters.push(updateCarousel);
 
             updateCarousel();
         }
