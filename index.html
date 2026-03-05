@@ -705,6 +705,90 @@
             color: var(--gold-accent);
         }
 
+        /* Contact Form */
+        .contact-form-container {
+            max-width: 700px;
+            margin: 4rem auto 0;
+            padding: 3rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .contact-form-subtitle {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: var(--gold-accent);
+            color: var(--dark-navy);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-submit-btn:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
         /* Footer */
         footer {
             background: var(--dark-navy);
@@ -879,7 +963,7 @@
 
             <div class="floor-stats-bar">
                 <div class="floor-stat-badge">
-                    <span class="stat-value">5,580 SF</span>
+                    <span class="stat-value">6,967 SF</span>
                     <span class="stat-label">Total Space</span>
                 </div>
                 <div class="floor-stat-badge">
@@ -1001,6 +1085,10 @@
                         <img src="R6II8393_1.jpeg" alt="Building lobby">
                         <div class="featured-caption">Ground Floor Building Lobby with Glass Entry &amp; Elevator</div>
                     </div>
+                    <div class="carousel-slide">
+                        <img src="3f-R6II8344.jpeg" alt="Executive conference room">
+                        <div class="featured-caption">Executive Conference Room with Built-In Bookshelves &amp; Whiteboard</div>
+                    </div>
                 </div>
 
                 <div class="carousel-controls">
@@ -1106,7 +1194,7 @@
                     </div>
                     <div class="carousel-slide">
                         <img src="3f-R6II8251.jpeg" alt="Manufacturing room with vault access">
-                        <div class="featured-caption">Manufacturing Room with Direct Vault Entry Access</div>
+                        <div class="featured-caption">Jewelry Storage with Direct Vault Entry Access</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="3f-R6II8254.jpeg" alt="Bank-grade vault door open">
@@ -1138,11 +1226,11 @@
                     </div>
                     <div class="carousel-slide">
                         <img src="3f-R6II8275.jpeg" alt="Jewelry inspection and processing room">
-                        <div class="featured-caption">Dedicated Jewelry Inspection &amp; Processing Room</div>
+                        <div class="featured-caption">Diamond Room</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="3f-R6II8278.jpeg" alt="Windowed corridor overlooking workroom">
-                        <div class="featured-caption">Windowed Corridor Overlooking Processing Workroom</div>
+                        <div class="featured-caption">Windowed Corridor Overlooking Diamond Processing</div>
                     </div>
                     <div class="carousel-slide">
                         <img src="3f-R6II8281.jpeg" alt="IT server room">
@@ -1211,10 +1299,6 @@
                     <div class="carousel-slide">
                         <img src="3f-R6II8329.jpeg" alt="Multi-stall restroom">
                         <div class="featured-caption">Multi-Stall Restroom with Dual Vanity Sinks</div>
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="3f-R6II8344.jpeg" alt="Executive conference room">
-                        <div class="featured-caption">Executive Conference Room with Built-In Bookshelves &amp; Whiteboard</div>
                     </div>
                 </div>
 
@@ -1340,13 +1424,13 @@
                 <div class="contact-item">
                     <div class="contact-icon">📞</div>
                     <h4>Call Us</h4>
-                    <a href="tel:954-437-5001">(954)XXX-XXXX</a>
+                    <a href="tel:917-692-1232">(917) 692-1232</a>
                 </div>
                 
                 <div class="contact-item">
                     <div class="contact-icon">✉️</div>
                     <h4>Email Us</h4>
-                    <a href="/cdn-cgi/l/email-protection#ef9b808b8b828683838a9d9d8a8e839b96af8d8a83839c809a9b87c1818a9b"><span class="__cf_email__" data-cfemail="b1c5ded5d5dcd8ddddd4c3c3d4d0ddc5c8f1d3d4ddddc2dec4c5d99fdfd4c5">[email&#160;protected]</span></a>
+                    <a href="mailto:yosifraiman@aol.com">yosifraiman@aol.com</a>
                 </div>
                 
             </div>
@@ -1362,6 +1446,48 @@
                 <a href="https://www.loopnet.com/Listing/1900-Tyler-St-Hollywood-FL/39026374/" target="_blank" class="btn btn-primary">
                     View Full Listing on LoopNet
                 </a>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h3 class="contact-form-title">Send Us a Message</h3>
+                <p class="contact-form-subtitle">Fill out the form below and we'll get back to you shortly</p>
+                
+                <form action="https://formsubmit.co/yosifraiman@aol.com" method="POST">
+                    <!-- Honeypot for spam protection -->
+                    <input type="text" name="_honey" style="display:none">
+                    
+                    <!-- Disable captcha -->
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- Success page redirect -->
+                    <input type="hidden" name="_next" value="https://sirenadesigns.com/thank-you.html">
+                    
+                    <!-- Email subject -->
+                    <input type="hidden" name="_subject" value="New inquiry from Jewelry Space Website">
+                    
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your needs and we'll help you find the perfect space..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit-btn">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
