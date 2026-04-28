@@ -250,7 +250,7 @@
 
         .carousel-container {
             position: relative;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
             border-radius: 20px;
@@ -270,7 +270,7 @@
         .carousel-slide img,
         .carousel-slide video {
             width: 100%;
-            height: 600px;
+            height: 450px;
             object-fit: cover;
             display: block;
         }
@@ -278,7 +278,7 @@
         .carousel-slide .yt-player,
         .carousel-slide .yt-player iframe {
             width: 100%;
-            height: 600px;
+            height: 450px;
             display: block;
             border: none;
         }
@@ -872,6 +872,83 @@
             }
         }
 
+        /* Floor Video Block (click-to-play, above carousel) */
+        .floor-video-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .floor-video-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            background: #000;
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-thumbnail:hover img {
+            opacity: 0.85;
+        }
+
+        .video-thumbnail .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.92);
+            border: none;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            padding-left: 6px; /* optical center for the triangle */
+        }
+
+        .video-thumbnail:hover .play-btn {
+            background: var(--gold-accent);
+            color: var(--dark-navy);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-thumbnail.playing {
+            cursor: default;
+        }
+
+        .video-thumbnail iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* Smooth scroll */
         html {
             scroll-behavior: smooth;
@@ -1009,6 +1086,14 @@
                         <li>Mostly Open Floor Plan Layout</li>
                         <li>Ample Surface Parking</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="floor-video-block">
+                <h3>Video Walkthrough</h3>
+                <div class="video-thumbnail" data-video-id="ghjpgTdiPqI">
+                    <img src="https://img.youtube.com/vi/ghjpgTdiPqI/maxresdefault.jpg" alt="2nd Floor Video Walkthrough">
+                    <button class="play-btn" aria-label="Play video">&#9654;</button>
                 </div>
             </div>
 
@@ -1152,6 +1237,14 @@
                         <li>Secure Entrance Systems</li>
                         <li>Downtown Location</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="floor-video-block">
+                <h3>Video Walkthrough</h3>
+                <div class="video-thumbnail" data-video-id="TZGi-Gl7-vg">
+                    <img src="https://img.youtube.com/vi/TZGi-Gl7-vg/maxresdefault.jpg" alt="3rd Floor Video Walkthrough">
+                    <button class="play-btn" aria-label="Play video">&#9654;</button>
                 </div>
             </div>
 
@@ -1648,6 +1741,21 @@
         initCarousel('carouselTrack2', 'prevBtn2', 'nextBtn2', 'indicators2', 'carouselContainer2');
         initCarousel('carouselTrack3', 'prevBtn3', 'nextBtn3', 'indicators3', 'carouselContainer3');
         initCarousel('carouselTrackBuilding', 'prevBtnBuilding', 'nextBtnBuilding', 'indicatorsBuilding', 'carouselContainerBuilding');
+
+        // Click-to-play video thumbnails
+        document.querySelectorAll('.video-thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                if (this.classList.contains('playing')) return;
+                const videoId = this.dataset.videoId;
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+                iframe.allow = 'autoplay; encrypted-media';
+                iframe.allowFullscreen = true;
+                this.innerHTML = '';
+                this.appendChild(iframe);
+                this.classList.add('playing');
+            });
+        });
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
